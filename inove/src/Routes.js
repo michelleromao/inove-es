@@ -11,6 +11,18 @@ import Projeto from "./pages/Projeto";
 
 const Router = () => {
   const [logged, setLogged] = useState(false);
+  const [storage, setStorage] = useState(localStorage.getItem("@userlogged"));
+
+  useEffect(() => {
+    if(storage === "" || 
+      storage === null ||
+      storage === undefined){
+      setLogged(false)
+      console.log(storage)
+    }else{
+      setLogged(true)
+    }
+  }, [storage])
 
    return(
     <BrowserRouter>

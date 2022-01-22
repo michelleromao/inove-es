@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 import { Container, Content } from './styles';
 import { Link } from "react-router-dom";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo.svg";
+import Chevron from "../../assets/chevron.svg";
+import User from "../../assets/user.svg";
+
 
 const Header = ({ isLogged }) => {
    return(
@@ -13,24 +16,32 @@ const Header = ({ isLogged }) => {
            <div>
            {isLogged === true? 
             <>
-              <NavLink to="/reunioes">Reuniões</NavLink >
-              <NavLink to="/projetos">Projetos</NavLink >
-              <NavLink to="/destaques">Destaques</NavLink >
-              <NavLink to="/parceiros">Parceiros</NavLink >
+              <Link to="/reunioes">Reuniões</Link>
+              <Link to="/projetos">Projetos</Link>
+              <Link to="/destaques">Destaques</Link>
+              <Link to="/parceiros">Parceiros</Link>
             </>
            : false}
            </div>
            <div>
-            <NavLink to="/login">Entrar</NavLink >
+            {isLogged === true? 
+              <>
+                <div>
+                  <img src={ Chevron } alt="Abrir menu" />
+                    Inove ADM
+                  <img src={ User } alt="Usuário" />
+                </div>
+              </> 
+            : 
+              <>
+                <Link to="/login">Entrar</Link>
+              </>}
            </div>
          </Content>
        </Container>
    )
 }
 
-const NavLink  = styled(Link)`
-  color: purple
-  text-decoration: none;
-`
+
 
 export default Header;

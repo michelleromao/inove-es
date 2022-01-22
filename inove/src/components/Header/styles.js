@@ -16,7 +16,7 @@ export const Content = styled.div`
   justify-content: space-between;
 
   div:first-of-type {
-    width: 80%;
+    width: 70%;
     display: flex;
     align-items: center;
     a{
@@ -25,6 +25,15 @@ export const Content = styled.div`
   }
   div:nth-of-type(2){
     justify-self: end;
+    width: 10%;
+    div{
+      width: 100%;
+      color: #021A19;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
     a{
       font-weight: bold
     }
