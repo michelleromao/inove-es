@@ -18,7 +18,6 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   width: 453px;
-  height: 80%;
 
   background: #FFFFFF;
   border-radius: 42px;
@@ -26,7 +25,9 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  justify-content: center;
+  padding-bottom: 5%;
+  
   img{
     margin-top: 12%;
   }

@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-bottom: 16%;
+  margin-bottom: 4%;
 `;
 
 export const Field = styled.input`
@@ -15,7 +15,19 @@ export const Field = styled.input`
   box-sizing: border-box;
   border-radius: 9px;
   height: 40px;
-  padding-left: 5%;
+  padding-left: 3%;
+  padding-right: 2%;
+`;
+
+export const FieldArea = styled.textarea`
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #021A19;
+  box-sizing: border-box;
+  border-radius: 9px;
+  padding-left: 3%;
+  padding-right: 2%;
+  resize: none; 
 `;
 
 export const Label = styled.div`
@@ -24,5 +36,5 @@ export const Label = styled.div`
   font-size: 18px;
 
   color: #666666;
-  margin-bottom: 3%;
+  margin-bottom: 1%;
 `;

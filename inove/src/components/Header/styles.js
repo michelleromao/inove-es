@@ -40,3 +40,23 @@ export const Content = styled.div`
   }
 `;
 
+export const Wrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  div{
+    img:nth-of-type(1){
+      transform: ${props => props.active ? "rotate(180deg)" : "rotate(0deg)"};
+    }
+  }
+`;
+
+export const Dropdown = styled.div`
+  opacity: ${props => props.active ? 1 : 0};
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10% 0 10% 10%;
+  z-index: 1;
+  margin-top: 65%;
+  transition: 0.3s;
+`;

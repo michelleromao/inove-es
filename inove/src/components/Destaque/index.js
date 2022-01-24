@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container } from './styles';
+import Modal from '../Modal';
 
-const Destaque = () => {
-   return(
-       <Container>
-           <div>Destaque</div>
-        </Container>
+const Destaque = ({ onClick }) => {
+
+   return (
+      <>
+         <Container onClick={onClick}>
+            <div>Destaque</div>
+         </Container>
+      </>
    )
 }
 

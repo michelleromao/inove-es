@@ -24,17 +24,21 @@ export const SubHeader = styled.div`
     font-size: 24px;
     color: #021A19;
   }
-  button{
-    font-style: normal;
-    font-weight: bold;
+  a{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+  }
+  button{
     color: #021A19;
     background-color: white;
     border: none;
     cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 13%;
+    width: 11%;
+
   }
 `;
