@@ -46,13 +46,13 @@ const Header = ({ isLogged }) => {
                 <img src={User} alt="Usuário" />
               </div>
               <Dropdown active={active} onClick={handleLogout}>
-                Sair
+                <p>Sair</p>
               </Dropdown>
             </Wrapper>
             :
-            <>
+            <div>
               <Link to="/login">Entrar</Link>
-            </>}
+            </div>}
         </div>
       </Content>
     </Container>

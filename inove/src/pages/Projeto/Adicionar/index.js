@@ -8,6 +8,18 @@ import { Container, Content, SubHeader } from './styles';
 
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
+import Select from '../../../components/Select';
+
+const parceiros = [
+  {value: '1', label: 'parceiro 1'},
+  {value: '2', label: 'parceiro 2'},
+  {value: '3', label: 'parceiro 2'},
+]
+const pesquisador = [
+  {value: '1', label: 'pesquisador 1'},
+  {value: '2', label: 'pesquisador 2'},
+  {value: '3', label: 'pesquisador 2'},
+]
 
 const AdicionarProjeto = () => {
   const navigate = useNavigate();
@@ -30,10 +42,10 @@ const AdicionarProjeto = () => {
 
       <Form onSubmit={handleSubmit} style={{ width: "30%" }}>
         <Input name="titulo" type="text" label={"Título *"} />
-        <Input name="pesquisador" type="text" label={"Pesquisador *"} />
-        <Input name="parceiro" type="text" label={"Parceiro"} />
+        <Select name="pesquisador" label={"Pesquisador *"} options={pesquisador}/>
+        <Select name="parceiro" label={"Parceiro"} options={parceiros}/>
         <Input name="area" type="text" label={"Área"} />
-        <Input name="inicio" type="date" label={"Início do projeto*"} />
+        <Input name="inicio" type="date" label={"Início do projeto *"} />
         <Input name="fim" type="date" label={"Fim do projeto"} />
         <Input name="descricao" typeText="textarea" type="textarea" label={"Descrição *"} />
 

@@ -24,18 +24,18 @@ export const Content = styled.div`
     }
   }
   div:nth-of-type(2){
-    justify-self: end;
-    width: 10%;
+    width: 11%;
     div{
       width: 100%;
       color: #021A19;
       display: flex;
-      justify-content: space-between;
+      justify-content: end;
       align-items: center;
       cursor: pointer;
-    }
-    a{
-      font-weight: bold
+      a{
+        font-weight: bold;
+        margin-right: 0;
+      }
     }
   }
 `;
@@ -46,6 +46,10 @@ export const Wrapper = styled.div`
   div{
     img:nth-of-type(1){
       transform: ${props => props.active ? "rotate(180deg)" : "rotate(0deg)"};
+      margin-right: 2%;
+    }
+    img:nth-of-type(2){
+      margin-left: 2%;
     }
   }
 `;
@@ -55,8 +59,10 @@ export const Dropdown = styled.div`
   position: absolute;
   background-color: #f9f9f9;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 10% 0 10% 10%;
   z-index: 1;
-  margin-top: 65%;
+  margin-top: 80%;
   transition: 0.3s;
+  p{
+   margin-right: 10%;
+  }
 `;

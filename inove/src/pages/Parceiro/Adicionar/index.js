@@ -8,6 +8,13 @@ import { Container, Content, SubHeader } from './styles';
 
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
+import Select from '../../../components/Select';
+
+const empresa = [
+  {value: '1', label: 'empresa 1'},
+  {value: '2', label: 'empresa 2'},
+  {value: '3', label: 'empresa 2'},
+]
 
 const AdicionarParceiro = () => {
   const navigate = useNavigate();
@@ -35,7 +42,7 @@ const AdicionarParceiro = () => {
           path === "parceiro" &&
           <>
             <Input name="nomep" type="text" label={"Nome do parceiro *"} />
-            <Input name="empresa" type="text" label={"Empresa *"} />
+            <Select name="empresa" label={"Empresa *"} options={empresa}/>
             <Input name="email" type="text" label={"Email do parceiro *"} />
             <Button type="submit" action={"Adicionar parceiro"} />
           </>

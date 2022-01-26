@@ -24,7 +24,7 @@ export default function Input({ name, label, typeText, ...rest }) {
     <Container>
       <Label>{label}</Label>
       {typeText === 'textarea' ?
-        <FieldArea ref={inputRef} defaultValue={defaultValue} {...rest} />
+        <FieldArea ref={inputRef} defaultValue={defaultValue} {...rest} rows={4}/>
         :
         <Field ref={inputRef} defaultValue={defaultValue} {...rest} />
       }

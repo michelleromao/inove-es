@@ -2,13 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  width: 298px;
-  margin-right: 3%;
+  width: 270px;
+  margin: 0 3% 5% 0;
   flex-direction: column;
 `;
 
 export const Content = styled.div`
-  width: 298px;
   background: #FAFAFA;
   border: 1px solid rgba(134, 154, 153, 0.15);
   box-sizing: border-box;
@@ -34,7 +33,7 @@ export const Description = styled.div`
   font-size: 12px;
   line-height: 14px;
   color: #000000;
-  height: 153px;
+  height: 200px;
   margin-top: 10%;
   margin-bottom: 5%;
   p{

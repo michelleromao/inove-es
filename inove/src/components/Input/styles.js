@@ -28,6 +28,7 @@ export const FieldArea = styled.textarea`
   padding-left: 3%;
   padding-right: 2%;
   resize: none; 
+  padding-top: 2%;
 `;
 
 export const Label = styled.div`

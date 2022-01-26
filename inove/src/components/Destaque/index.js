@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container } from './styles';
-import Modal from '../Modal';
 
 const Destaque = ({ onClick }) => {
 
