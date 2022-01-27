@@ -13,7 +13,7 @@ export const Content = styled.div`
   flex-direction: column;
 `;
 
-export const Destaques = styled.div`
+export const Highlights = styled.div`
   width: 100%;
   display: flex;
   flex-flow: row wrap;

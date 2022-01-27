@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
+import api from '../../services/api';
 
 import { FiEdit } from 'react-icons/fi'
 import Table from '@mui/material/Table';
@@ -32,7 +34,18 @@ const rows = [
     }
   ];
 
-const Reuniao = () => {
+const Meeting = () => {
+    const [meetings, setMeetings] = useState([]);
+    
+    const getMeetings = useCallback(async() => {
+        const { data } = await api.get(`/rota/`);
+        setMeetings([])
+    }, [])
+
+    useEffect(() => {
+        getMeetings()
+    }, [getMeetings])
+
     return (
         <Container>
             <Content>
@@ -52,14 +65,14 @@ const Reuniao = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map(row => (
-                                <TableRow  key={row.id}>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.parceiro}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.empresa}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.data}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.titulo}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.link}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.status}</TableCell>
+                            {meetings.map(meeting => (
+                                <TableRow  key={meeting.id}>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.parceiro}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.empresa}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.data}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.titulo}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.link}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.status}</TableCell>
                                     <TableCell align="right"> 
                                         <button style={{border: "none", 
                                                         backgroundColor: "white", 
@@ -77,4 +90,4 @@ const Reuniao = () => {
     )
 }
 
-export default Reuniao;
+export default Meeting;

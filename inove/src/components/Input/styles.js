@@ -39,3 +39,9 @@ export const Label = styled.div`
   color: #666666;
   margin-bottom: 1%;
 `;
+
+export const Error = styled.p`
+  color: red;
+  margin: 10px 0 0 0;
+  font-size: 12px
+`;

@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container } from './styles';
 
-const Destaque = ({ onClick }) => {
+const Emphasis = ({ title, onClick }) => {
 
    return (
       <>
          <Container onClick={onClick}>
-            <div>Destaque</div>
+            <div>{title}</div>
          </Container>
       </>
    )
 }
 
-export default Destaque;
+export default Emphasis;

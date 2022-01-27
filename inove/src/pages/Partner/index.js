@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
+import api from '../../services/api';
 
 import { FiEdit, FiMap } from 'react-icons/fi'
 import { AiOutlineDelete } from 'react-icons/ai'
@@ -52,8 +54,33 @@ const solicitacoes = [
     },
 ]
 
-const Parceiros = () => {
+const Partner = () => {
     const [view, setView] = useState(1);
+
+    const [partners, setPartners] = useState([]);
+    const [companies, setCompanies] = useState([]);
+    const [researchers, setResearchers] = useState([]);
+
+    const getPartners = useCallback(async() => {
+        const { data } = await api.get(`/rota/`);
+        setPartners([])
+    }, [])
+
+    const getCompanies = useCallback(async() => {
+        const { data } = await api.get(`/rota/`);
+        setCompanies([])
+    }, [])
+
+    const getResearchers = useCallback(async() => {
+        const { data } = await api.get(`/rota/`);
+        setResearchers([])
+    }, [])
+    
+    useEffect(() => {
+        getPartners()
+        getCompanies()
+        getResearchers()
+    }, [getPartners, getCompanies, getResearchers])
 
     return (
         <Container>
@@ -80,11 +107,11 @@ const Parceiros = () => {
                             Alunos
                         </ButtonTab>
                     </div>
-                    <div>
+                    {/*<div>
                         <ButtonTab active={view === 4 ? true : false} onClick={() => { setView(4) }}>
                             Solicitações
                         </ButtonTab>
-                    </div>
+                    </div>*/}
                 </Tab>
 
                 {view === 1 && 
@@ -101,13 +128,13 @@ const Parceiros = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {parceiros.map(row => (
-                                    <TableRow  key={row.id}>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.nome}</TableCell>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.emailp}</TableCell>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.empresa}</TableCell>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.emaile}</TableCell>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.telefonee}</TableCell>
+                                {partners.map(partner => (
+                                    <TableRow  key={partner.id}>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{partner.nome}</TableCell>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{partner.emailp}</TableCell>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{partner.empresa}</TableCell>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{partner.emaile}</TableCell>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{partner.telefonee}</TableCell>
                                         <TableCell align="right"> 
                                             <button style={{border: "none", 
                                                             backgroundColor: "white", 
@@ -139,13 +166,13 @@ const Parceiros = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {empresas.map(row => (
-                                    <TableRow  key={row.id}>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.nome}</TableCell>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.email}</TableCell>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.telefone}</TableCell>
+                                {companies.map(company => (
+                                    <TableRow  key={company.id}>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{company.nome}</TableCell>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{company.email}</TableCell>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{company.telefone}</TableCell>
                                         <TableCell align="left" style={{color: "#3A4040"}}>
-                                            <a href={`http://maps.google.com/?q=${row.endereco}`}
+                                            <a href={`http://maps.google.com/?q=${company.endereco}`}
                                                 style={{ cursor: "pointer"}}
                                                 target= "_blank" rel="noreferrer noopener">
                                                 <FiMap color="#005B58" size={20}/>
@@ -181,11 +208,11 @@ const Parceiros = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {alunos.map(row => (
-                                    <TableRow  key={row.id}>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.nome}</TableCell>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.email}</TableCell>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{row.telefone}</TableCell>
+                                {researchers.map(researcher => (
+                                    <TableRow  key={researcher.id}>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{researcher.nome}</TableCell>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{researcher.email}</TableCell>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{researcher.telefone}</TableCell>
                                         <TableCell align="right"> 
                                             <button style={{border: "none", 
                                                             backgroundColor: "white", 
@@ -246,4 +273,4 @@ const Parceiros = () => {
     )
 }
 
-export default Parceiros;
+export default Partner;

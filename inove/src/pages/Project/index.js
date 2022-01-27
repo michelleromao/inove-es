@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
+import api from '../../services/api';
 
 import { FiEdit } from 'react-icons/fi'
 import { AiOutlineDelete } from 'react-icons/ai'
@@ -34,7 +36,18 @@ const rows = [
     },
   ];
 
-const Projeto = () => {
+const Project = () => {
+    const [projects, setProjects] = useState([]);
+
+    const getProjects = useCallback(async() => {
+        const { data } = await api.get(`/rota/`);
+        setProjects([])
+    }, [])
+
+    useEffect(() => {
+        getProjects()
+    }, [getProjects])
+
     return (
         <Container>
             <Content>
@@ -54,14 +67,14 @@ const Projeto = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map(row => (
-                                <TableRow  key={row.id}>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.titulo}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.pesquisador}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.parceiro}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.area}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.inicio}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{row.fim}</TableCell>
+                            {projects.map(project => (
+                                <TableRow  key={project.id}>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{project.titulo}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{project.pesquisador}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{project.parceiro}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{project.area}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{project.inicio}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{project.fim}</TableCell>
                                     <TableCell align="right"> 
                                         <button style={{border: "none", 
                                                         backgroundColor: "white", 
@@ -84,4 +97,4 @@ const Projeto = () => {
     )
 }
 
-export default Projeto;
+export default Project;

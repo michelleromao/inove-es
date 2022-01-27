@@ -26,7 +26,9 @@ const Header = ({ isLogged }) => {
   return (
     <Container>
       <Content>
-        <img src={Logo} alt="Logo INOVE Portfólio" />
+      {isLogged === true ? <img src={Logo} alt="Logo INOVE Portfólio" /> : 
+        <Link to="/"><img src={Logo} alt="Logo INOVE Portfólio" /></Link>
+      }
         <div>
           {isLogged === true ?
             <>
@@ -42,7 +44,7 @@ const Header = ({ isLogged }) => {
             <Wrapper onClick={() => setActive(!active)} active={active}>
               <div>
                 <img src={Chevron} alt="Abrir menu" />
-                Inove ADM
+                {localStorage.getItem("@username")}
                 <img src={User} alt="Usuário" />
               </div>
               <Dropdown active={active} onClick={handleLogout}>
