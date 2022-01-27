@@ -42,6 +42,6 @@ export const Label = styled.div`
 
 export const Error = styled.p`
   color: red;
-  margin: 10px 0 0 0;
+  margin: 4px 0 4px 0;
   font-size: 12px
 `;

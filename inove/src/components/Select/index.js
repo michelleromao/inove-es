@@ -1,57 +1,43 @@
 import React, { useRef, useEffect } from 'react';
-import ReactSelect, {
-  OptionTypeBase,
-  Props as SelectProps,
-} from 'react-select';
+import ReactSelect from 'react-select';
 import { useField } from '@unform/core';
 
-import { Container, Label } from './styles.js'
+import { Container, Label, Error } from './styles.js'
 
-export default function Select({ name, label, ...rest }) {
-  const selectRef = useRef(null);
-  const { fieldName, defaultValue, registerField, error } = useField(name);
+export default function Select({ name, children, label, isError, message, ...rest }) {
+  const { fieldName, defaultValue, registerField } = useField(name);
+
+  const optionRefs = useRef([]);
+
   useEffect(() => {
     registerField({
       name: fieldName,
-      ref: selectRef.current,
-      getValue: (ref) => {
-        if (rest.isMulti) {
-          if (!ref.state.value) {
-            return [];
-          }
-          return ref.state.value.map((option) => option.value);
-        }
-        if (!ref.state.value) {
-          return '';
-        }
-        return ref.state.value.value;
+      ref: optionRefs.current,
+      getValue: (refs) => {
+        return refs.find((ref) => ref.selected)?.value || "";
       },
+      setValue: (refs, value) => {
+        const option = refs.find((ref) => ref.value === value);
+
+        if (option) option.selected = true;
+      },
+      clearValue: (refs) => {
+        refs.forEach((ref) => (ref.selected = false));
+      }
     });
-  }, [fieldName, registerField, rest.isMulti]);
+  }, [fieldName, registerField]);
+
   return (
     <Container>
       <Label>{label}</Label>
-      <ReactSelect
-        defaultValue={defaultValue}
-        ref={selectRef}
-        isSearchable={false}
-        styles={{
-          container: provided => ({...provided, width: "100%"}),
-          control: (styles) => ({...styles, border: "1px solid #021A19", borderRadius: 9}),
-          option: (styles, {data, isDisabled, isFocused, isSelected}) => {
-            return{...styles, 
-              backgroundColor: isDisabled
-                ? undefined
-                : isSelected
-                ? "#005B58"
-                : isFocused
-                ? "#BDD4D4"
-                : undefined,
-            }
-          }
-        }}
-        {...rest}
-      />
+      <select name={fieldName} defaultValue={defaultValue} {...rest}>
+        {React.Children.map(children, (child) =>
+          React.cloneElement(child, {
+            ref: (ref) => optionRefs.current.push(ref)
+          })
+        )}
+    </select>
+      {isError === true ? <Error>{message}</Error> : false}
     </Container>
     
   );

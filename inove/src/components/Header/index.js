@@ -17,7 +17,7 @@ const Header = ({ isLogged }) => {
     localStorage.removeItem("@userlogged");
     navigate('/');
     window.location.reload();
-  }, [])
+  }, [navigate])
 
   useEffect(() => {
     setPath(location.pathname.split("/")[1])

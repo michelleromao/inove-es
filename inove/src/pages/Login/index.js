@@ -27,10 +27,11 @@ const Login = () => {
             setErrorEmail(false)
             setErrorPwd(false)
 
-            const request = await api.post(`/rota/`, data);
+            const request = await api.post(`/auth/`, data);
             
-            localStorage.setItem("@userlogged", "adm");
-            localStorage.setItem("@username", "Inove ADM");
+            localStorage.setItem("@userlogged", `${request.data.role}`);
+            localStorage.setItem("@username", `${request.data.name}`);
+            localStorage.setItem("@useruuid", `${request.data.id}`);
 
             navigate('/reunioes');
             window.location.reload();

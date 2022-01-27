@@ -53,7 +53,6 @@ const AdicionarReuniao = () => {
       <Form onSubmit={handleSubmit} style={{ width: "30%" }}>
         <Input name="titulo" type="text" label={"Título *"} />
         <Select name="parceiro" label={"Parceiro"} options={parceiros}/>
-        <Select name="empresa" label={"Empresa"} options={empresa}/>
         <Select name="pesquisador" label={"Pesquisador *"} options={pesquisador}/>
         <Input name="data" type="date" label={"Data *"} />
         <Input name="link" type="text" label={"Link reunião"} />

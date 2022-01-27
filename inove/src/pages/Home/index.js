@@ -34,7 +34,7 @@ const Home = () => {
     const handleOpen = useCallback((uuid) => {
         getHighlight(uuid);
         setOpen(true)
-    },[]);
+    },[getHighlight]);
 
     const handleClose = useCallback(() => {
         setOpen(false)
