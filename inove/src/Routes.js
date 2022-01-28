@@ -4,15 +4,22 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Header from "./components/Header"
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Highlight from "./pages/Highlight";
-import Meeting from "./pages/Meeting";
-import Partner from "./pages/Partner";
+
 import Project from "./pages/Project";
 import AddProject from "./pages/Project/Add";
+import EditProject from "./pages/Project/Edit";
+
+import Partner from "./pages/Partner";
 import AddPartner from "./pages/Partner/Add";
 import EditPartner from "./pages/Partner/Edit";
+
+import Highlight from "./pages/Highlight";
 import AddHighlight from "./pages/Highlight/Add";
+
+import Meeting from "./pages/Meeting";
 import AddMeeting from "./pages/Meeting/Add";
+import EditMeeting from "./pages/Meeting/Edit";
+
 
 
 const Router = () => {
@@ -39,7 +46,10 @@ const Router = () => {
         <Route element={<Meeting />} path="/reunioes" />
         <Route element={<Partner />} path="/parceiros" />
         <Route element={<Project />} path="/projetos" />
+
         <Route element={<AddProject />} path="/adicionar/projeto" exact />
+        <Route element={<EditProject />} path="/editar/projeto/:ID" exact />
+
 
         <Route element={<AddPartner />} path="/adicionar/parceiro" exact />
         <Route element={<AddPartner />} path="/adicionar/empresa" exact />
@@ -51,7 +61,10 @@ const Router = () => {
         
 
         <Route element={<AddHighlight />} path="/adicionar/destaque" exact />
+
         <Route element={<AddMeeting />} path="/adicionar/reuniao" exact />
+        <Route element={<EditMeeting />} path="/editar/reuniao/:id" exact />
+
 
       </Routes>
     </BrowserRouter>

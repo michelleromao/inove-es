@@ -3,13 +3,11 @@ import { AiOutlineDelete } from 'react-icons/ai'
 
 import { Container, Expire } from './styles.js';
 
-export const Highlight = ({ title, expire }) => {
+export const Highlight = ({ title, expire, children }) => {
   return(
     <Container>
       <div>
-        <button>
-          <AiOutlineDelete color="#005B58" size={20}/>
-        </button>
+        {children}
       </div>
       <div>
         <h4>{title}</h4>

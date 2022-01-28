@@ -12,34 +12,14 @@ import TableRow from '@mui/material/TableRow';
 
 import Subheader from "../../components/Subheader";
 import { Container, Content } from './styles';
-
-const rows = [
-    {
-        id: 1,
-        parceiro: 'p1',
-        empresa: 'e1',
-        data: '00/00/00',
-        titulo: 'reuniao de alinhamento',
-        link: 'https//meet.com.br/oio-oio',
-        status: 'pendente',
-    },
-    {
-        id: 2,
-        parceiro: 'p1',
-        empresa: 'e1',
-        data: '00/00/00',
-        titulo: 'reuniao de alinhamento',
-        link: 'https//meet.com.br/oio-oio',
-        status: 'pendente',
-    }
-  ];
+import { Link } from "react-router-dom";
 
 const Meeting = () => {
-    const [meetings, setMeetings] = useState([]);
+    const [appointments, setAppointments] = useState([]);
     
     const getMeetings = useCallback(async() => {
-        const { data } = await api.get(`/rota/`);
-        setMeetings([])
+        const { data } = await api.get(`/appointments`);
+        setAppointments(data.appointments)
     }, [])
 
     useEffect(() => {
@@ -55,30 +35,28 @@ const Meeting = () => {
                     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>
+                                <TableCell align="left" style={{fontWeight: "bold", color: "#021A19"}}>Título</TableCell>
                                 <TableCell align="left" style={{fontWeight: "bold", color: "#021A19"}}>Parceiro</TableCell>
                                 <TableCell align="left" style={{fontWeight: "bold", color: "#021A19"}}>Empresa</TableCell>
                                 <TableCell align="left" style={{fontWeight: "bold", color: "#021A19"}}>Data</TableCell>
-                                <TableCell align="left" style={{fontWeight: "bold", color: "#021A19"}}>Título</TableCell>
                                 <TableCell align="left" style={{fontWeight: "bold", color: "#021A19"}}>Link</TableCell>
                                 <TableCell align="left" style={{fontWeight: "bold", color: "#021A19"}}>Status</TableCell>
                                 <TableCell align="left" />
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {meetings.map(meeting => (
-                                <TableRow  key={meeting.id}>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.parceiro}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.empresa}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.data}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.titulo}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.link}</TableCell>
-                                    <TableCell align="left" style={{color: "#3A4040"}}>{meeting.status}</TableCell>
+                            {appointments.length > 0 && appointments.map(appointment => (
+                                <TableRow  key={appointment.id}>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{appointment.meeting.title}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{appointment.meeting.partner.name}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{appointment.meeting.partner.company.name}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{new Date(appointment.date).getDate()}/{new Date(appointment.date).getMonth()+1}/{new Date(appointment.date).getFullYear()}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{appointment.meeting.link}</TableCell>
+                                    <TableCell align="left" style={{color: "#3A4040"}}>{appointment.meeting.status}</TableCell>
                                     <TableCell align="right"> 
-                                        <button style={{border: "none", 
-                                                        backgroundColor: "white", 
-                                                        cursor: "pointer"}}>
-                                            <FiEdit color="#005B58" size={20}/>
-                                        </button>
+                                            <Link to={`/editar/reuniao/${appointment.id}`}>
+                                                <FiEdit color="#005B58" size={20}/>
+                                            </Link>
                                     </TableCell>
                                 </TableRow>
                             ))}

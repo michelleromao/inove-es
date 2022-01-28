@@ -15,15 +15,15 @@ const Project = ( { title, area, description, dateInit, dateEnd, researcher } ) 
                 <b>Feito por</b> {researcher}
             </Details>
             <Details>
-                <b>Iniciou em</b> {dateInit}
+                <b>Iniciou em</b> {new Date(dateInit).getDate()}/{new Date(dateInit).getMonth()+1}/{new Date(dateInit).getFullYear()}
             </Details>
             {dateEnd && 
                 <Details>
-                    <b>Terminou em</b> {dateEnd}
+                    <b>Terminou em</b> {new Date(dateEnd).getDate()}-{new Date(dateEnd).getMonth()+1}-{new Date(dateEnd).getFullYear()}
                 </Details>
             }
             </Content>
-            <Button action={"Solicitar parceria"}/>
+            {/*<Button action={"Solicitar parceria"}/>*/}
         </Container>
    )
 }

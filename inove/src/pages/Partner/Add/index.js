@@ -24,7 +24,6 @@ const AdicionarParceiro = () => {
   const getCompanies = useCallback(async () => {
     const { data } = await api.get(`/companies/`);
     let list = [];
-    console.log(data.companies.length)
     if(data.companies.length > 0){
       data.companies.map(company => {
         list.push({

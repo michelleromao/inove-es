@@ -13,22 +13,21 @@ import { Container, Content, Title, List1, List2, ProjectContent, Description, D
 
 const Home = () => {
     const [open, setOpen] = useState(false);
-    const [emphasis, setEmphasis] = useState([]);
+    const [highlights, setHighlights] = useState([]);
     const [highlight, setHighlight] = useState({});
     const [projects, setProjects] = useState([]);
-
     
     const getHighlight = useCallback(async (uuid) => {
-        const { data } = await api.get(`/rota/${uuid}`);
-        setEmphasis({})
+        const { data } = await api.get(`/projects/${uuid}`);
+        setHighlight(data)
     }, []);
-    const getEmphasis = useCallback(async () => {
-        const { data } = await api.get(`/rota/`);
-        setEmphasis([])
+    const getHighlights = useCallback(async () => {
+        const { data } = await api.get(`/highlights/`);
+        setHighlights(data.highlights)
     }, []);
     const getProjects = useCallback(async () => {
-        const { data } = await api.get(`/rota/`);
-        setProjects([])
+        const { data } = await api.get(`/projects/`);
+        setProjects(data.projects)
     }, []);
 
     const handleOpen = useCallback((uuid) => {
@@ -42,20 +41,20 @@ const Home = () => {
     }, []);
     
     useEffect(() => {
-        getEmphasis()
+        getHighlights()
         getProjects()
-    }, [getEmphasis, getProjects])
+    }, [getHighlights, getProjects])
 
     return (
         <>
             <Container>
                 <Content>
-                    {emphasis.length > 0 && 
+                    {highlights.length > 0 && 
                         <section>
                             <Title>Destaques</Title>
                             <List1>
-                                {emphasis.map(object => (
-                                    <Emphasis onClick={() => handleOpen(object.uuid_project)}/>
+                                {highlights.map(object => (
+                                    <Emphasis key={object.id} onClick={() => handleOpen(object.project.id)} title={object.project.name}/>
                                 ))}
                             </List1>
                         </section>
@@ -64,12 +63,13 @@ const Home = () => {
                             <Title>Projetos</Title>
                             <List2>
                                 {projects.length > 0 ? projects.map(project => (
-                                    <Project area={project.area} 
-                                            dateEnd={project.dateEnd && project.dateEnd} 
-                                            dateInit={project.dateInit} 
+                                    <Project key={project.id} 
+                                            area={project.field} 
+                                            dateEnd={project.end_date && project.end_date} 
+                                            dateInit={project.start_date} 
                                             description={project.description} 
-                                            researcher={project.researcher} 
-                                            title={project.title} />
+                                            researcher={project.student.name} 
+                                            title={project.name} />
                                 )): "Não temos projetos listados ainda. Caso desejar entrar em contato projetos@quixada.ufc.br."}
                             </List2>
                         </section>
@@ -84,25 +84,24 @@ const Home = () => {
             >
                 <ProjectContent>
                     <div>
-                        <TitleModal> {highlight.title} </TitleModal>
+                        <TitleModal>Projeto {highlight.name} </TitleModal>
                         <button onClick={handleClose}><AiOutlineCloseCircle size={20}/></button>
                     </div>
-                    <Tag>{highlight.area}</Tag>
+                    <Tag>{`${highlight.field}`}</Tag>
                     <Description>
-                        <p>{highlight.description}</p>
+                        <p>{`${highlight.description}`}</p>
                     </Description>
                     <Details>
-                        <b>Feito por</b> {highlight.researchher}
+                        <b>Feito por</b> {`${highlight.student?.name}`}
                     </Details>
                     <Details>
-                        <b>Iniciou em</b> {highlight.dateInit}
+                        <b>Iniciou em</b> {`${highlight.start_date}`}
                     </Details>
                     {highlight.dateEnd && 
                         <Details>
-                            <b>Terminou em</b> {highlight.dateEnd}
+                            <b>Terminou em</b> {`${highlight.end_date}`}
                         </Details>
                     }
-                    <Button action={"Solicitar parceria"} />
                 </ProjectContent>
             </Modal>
         </> 

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Form } from '@unform/web'
 import { useNavigate } from "react-router-dom";
 import { HiArrowNarrowLeft } from 'react-icons/hi';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import api from '../../../services/api';
 
@@ -12,8 +12,13 @@ import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import Select from '../../../components/Select';
 
-const AdicionarProjeto = () => {
+const EditProject = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [uuid, setUuid] = useState(location.pathname.split("/")[3])
+
+  const [project, setProject] = useState({});
+
   const [partnersList, setPartnersList] = useState([]);
   const [studentsList, setStudentsList] = useState([]);
   const [state, setState] = useState(false);
@@ -47,8 +52,50 @@ const AdicionarProjeto = () => {
 
   }, [])
 
+  const getData = useCallback(async () => {
+    const { data } = await api.get(`/projects/${uuid}`);
+    console.log(data)
+    let yearsD = new Date(data.start_date).getFullYear();
+    let monthsD = 0;
+    if(new Date(data.start_date).getMonth() < 9){
+      monthsD = `0`+(new Date(data.start_date).getMonth()+1)
+    }else{
+      monthsD = (new Date(data.start_date).getMonth()+1)
+    }
+    let daysD = new Date(data.start_date).getDate();
+
+    let end_date = ""
+    let yeareD = ""
+    let montheD =  0;
+    let dayeD = ""
+
+    if(data.end_date !== null){
+       end_date = new Date(data.end_date);
+       yeareD = new Date(data.end_date).getFullYear();
+      if(new Date(data.end_date).getMonth() < 9){
+        montheD = `0`+(new Date(data.end_date).getMonth()+1)
+      }else{
+        montheD = (new Date(data.end_date).getMonth()+1)
+      }
+       dayeD = new Date(data.end_date).getDate();
+    }
+    
+    let projectData = {
+      id: data.id,
+      name: data.name,
+      student_id: data.student_id,
+      partner: data.partner_id,
+      description: data.description,
+      field: data.field,
+      end_date: data.end_date ? `${yeareD}-${montheD}-${dayeD}` : "",
+      start_date: `${yearsD}-${monthsD}-${daysD}`,
+    }
+
+    setProject(projectData);
+
+  }, [uuid])
+
   const handleSubmit = useCallback(async (data) => {
-    console.log(data);
     if(data.name !== "" &&
         data.description !== "" &&
         data.start_date !== "" &&
@@ -65,7 +112,7 @@ const AdicionarProjeto = () => {
             partner_id: data.partner_id,
           }
           try{
-            const request = await api.post(`/projects/`, project)
+            const request = await api.put(`/projects/${uuid}`, project)
             navigate('/projetos');
           }catch (err) {
             console.log(err.response)
@@ -76,7 +123,8 @@ const AdicionarProjeto = () => {
   useEffect(() => {
     getPartners()
     getStudents()
-  }, [getPartners,getStudents])
+    getData()
+  }, [getPartners,getStudents, getData])
 
   return (
     <Container>
@@ -90,26 +138,30 @@ const AdicionarProjeto = () => {
       </Content>
 
       <Form onSubmit={handleSubmit} style={{ width: "30%" }}>
-        <Input name="name" type="text" label={"Título *"} />
+        <Input name="name" type="text" label={"Título *"} defaultValue={project.name}/>
         <Select name="student_id" label={"Pesquisador *"} isError={state} message={"Você precisa adicionar um aluno antes."}>
               {studentsList.map(item => (
-                <option key={item.value} value={`${item.value}`}>{item.label}</option>
+                <option key={item.value} value={`${item.value}`}
+                  selected={project.company && project.student.id === item.value && item.value}
+                >{item.label}</option>
               ))}
           </Select>
           <Select name="partner_id" label={"Parceiro"}>
               {partnersList.map(item => (
-                <option key={item.value} value={`${item.value}`}>{item.label}</option>
+                <option key={item.value} value={`${item.value}`}
+                 selected={project.company && project.partner.id === item.value && item.value}
+                >{item.label}</option>
               ))}
           </Select>
-        <Input name="field" type="text" label={"Área"} />
-        <Input name="start_date" type="date" label={"Início do projeto *"} />
-        <Input name="end_date" type="date" label={"Fim do projeto"} />
-        <Input name="description" typeText="textarea" type="textarea" label={"Descrição *"} />
+        <Input name="field" type="text" label={"Área"} defaultValue={project.field}/>
+        <Input name="start_date" type="date" label={"Início do projeto *"} defaultValue={project.start_date}/>
+        <Input name="end_date" type="date" label={"Fim do projeto"} defaultValue={project.end_date}/>
+        <Input name="description" typeText="textarea" type="textarea" label={"Descrição *"} defaultValue={project.description}/>
 
-        <Button type="submit" action={"Adicionar projeto"} disabled={state}/>
+        <Button type="submit" action={"Editar projeto"} disabled={state}/>
       </Form>
     </Container>
   )
 }
 
-export default AdicionarProjeto;
+export default EditProject;
