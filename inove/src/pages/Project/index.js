@@ -80,7 +80,7 @@ const Project = () => {
                                     <TableRow  key={project.id}>
                                         <TableCell align="left" style={{color: "#3A4040"}}>{project.name}</TableCell>
                                         <TableCell align="left" style={{color: "#3A4040"}}>{project.student.name}</TableCell>
-                                        <TableCell align="left" style={{color: "#3A4040"}}>{project.partner.name}</TableCell>
+                                        <TableCell align="left" style={{color: "#3A4040"}}>{project.partner?.name}</TableCell>
                                         <TableCell align="left" style={{color: "#3A4040"}}>{project.field}</TableCell>
                                         <TableCell align="left" style={{color: "#3A4040"}}>{new Date(project.start_date).getDate()}/{new Date(project.start_date).getMonth()+1}/{new Date(project.start_date).getFullYear()}</TableCell>
                                         <TableCell align="left" style={{color: "#3A4040"}}>

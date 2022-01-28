@@ -136,7 +136,7 @@ const AdicionarParceiro = () => {
           <>
             <Input name="name" type="text" label={"Nome da empresa *"} />
             <Input name="email" type="email" label={"Email da empresa *"} isError={errEmail} message={"Email já está sendo usado"}/>
-            <Input name="phone_number" type="text" label={"Telefone da empresa"} />
+            <Input name="phone_number" type="text" label={"Telefone da empresa *"} />
             <Input name="address" type="text" label={"Endereço da empresa *"} />
             <Button type="submit" action={"Adicionar empresa"} />
           </>
