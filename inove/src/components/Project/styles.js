@@ -8,6 +8,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
+  height: 407px;
   background: #FAFAFA;
   border: 1px solid rgba(134, 154, 153, 0.15);
   box-sizing: border-box;
@@ -33,7 +34,6 @@ export const Description = styled.div`
   font-size: 12px;
   line-height: 14px;
   color: #000000;
-  height: 200px;
   margin-top: 10%;
   margin-bottom: 5%;
   p{

@@ -84,7 +84,7 @@ const Home = () => {
             >
                 <ProjectContent>
                     <div>
-                        <TitleModal>Projeto {highlight.name} </TitleModal>
+                        <TitleModal>{highlight.name} </TitleModal>
                         <button onClick={handleClose}><AiOutlineCloseCircle size={20}/></button>
                     </div>
                     <Tag>{`${highlight.field}`}</Tag>
@@ -95,11 +95,11 @@ const Home = () => {
                         <b>Feito por</b> {`${highlight.student?.name}`}
                     </Details>
                     <Details>
-                        <b>Iniciou em</b> {`${highlight.start_date}`}
+                        <b>Iniciou em</b> {new Date(highlight.start_date).getDate()}/{new Date(highlight.start_date).getMonth()+1}/{new Date(highlight.start_date).getFullYear()}
                     </Details>
-                    {highlight.dateEnd && 
+                    {highlight.end_date && 
                         <Details>
-                            <b>Terminou em</b> {`${highlight.end_date}`}
+                            <b>Terminou em</b> {new Date(highlight.end_date).getDate()}/{new Date(highlight.end_date).getMonth()+1}/{new Date(highlight.end_date).getFullYear()}
                         </Details>
                     }
                 </ProjectContent>

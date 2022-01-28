@@ -21,6 +21,10 @@ const AdicionarProjeto = () => {
   const getPartners = useCallback(async () => {
     const { data } = await api.get(`/partners/`);
     let list = [];
+    list.push({
+      value: "",
+      label: "Nenhum", 
+    })
     data.partners.map(partner => {
       list.push({
         value: partner.id,
@@ -48,7 +52,6 @@ const AdicionarProjeto = () => {
   }, [])
 
   const handleSubmit = useCallback(async (data) => {
-    console.log(data);
     if(data.name !== "" &&
         data.description !== "" &&
         data.start_date !== "" &&
@@ -77,7 +80,6 @@ const AdicionarProjeto = () => {
     getPartners()
     getStudents()
   }, [getPartners,getStudents])
-
   return (
     <Container>
       <Content>
